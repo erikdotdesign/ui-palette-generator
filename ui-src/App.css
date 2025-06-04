@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+input[type="color"] {
+  vertical-align: middle;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+}
