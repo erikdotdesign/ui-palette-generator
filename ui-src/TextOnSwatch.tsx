@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import chroma from "chroma-js";
+import { ThemeContext } from './ThemeProvider';
 
 const TextOnSwatch = ({
   bg,
@@ -11,21 +13,34 @@ const TextOnSwatch = ({
 }) => {
   const contrast = chroma.contrast(bg, text).toFixed(2);
   const isPass = parseFloat(contrast) >= 3.1;
+  const { themes, theme } = useContext(ThemeContext);
 
   return (
-    <div className="relative text-center text-xs">
+    <div 
+      className="relative text-center text-xs p-2 rounded-lg"
+      style={{
+        background: themes[theme].background.z1,
+        // boxShadow: `0 0 0 1px ${themes[theme].background.z2}`
+      }}>
       <div
-        className="w-20 h-10 rounded flex items-center justify-center text-sm"
+        className="w-full h-16 rounded flex items-center justify-center text-sm"
         style={{ backgroundColor: bg, color: text }}
-        title={`Contrast: ${contrast}`}
-      >
+        title={`Contrast: ${contrast}`}>
         Aa
       </div>
-      <div className="text-[10px] mt-1">{label}</div>
+      <div 
+        className="mt-1"
+        style={{
+          color: themes[theme].textStyles.base
+        }}>
+        {label}
+      </div>
       <div
-        className={`absolute top-0 right-0 px-1 text-[10px] rounded-bl ${
-          isPass ? "bg-green-500 text-white" : "bg-red-500 text-white"
-        }`}>
+        className="absolute top-2 right-2 px-1 text-[10px] rounded-bl"
+        style={{
+          background: isPass ? themes[theme].palette.success : themes[theme].palette.error,
+          color: isPass ? themes[theme].textOnPalette[`text-base-on-success`] : themes[theme].textOnPalette[`text-base-on-error`]
+        }}>
         {contrast}
       </div>
     </div>

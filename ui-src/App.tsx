@@ -1,30 +1,29 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import Swatch from './Swatch';
 import TextOnSwatch from './TextOnSwatch';
-import { generateThemes } from './theme-generator';
+import PrimaryColorPicker from './PrimaryColorPicker';
+import { ThemeContext } from './ThemeProvider';
+import ThemeToggle from './ThemeToggle';
 import "./App.css";
 
 const App = () => {
-  const [primary, setPrimary] = useState("#6200ee");
-  const [themes, setThemes] = useState<any>(null);
+  const { themes, theme } = useContext(ThemeContext);
 
-  const handleGeneratePreview = () => {
-    const generated = generateThemes({primary});
-    console.log(generated);
-    setThemes(generated);
-  };
+  useEffect(() => {
+    console.log(themes);
+  }, [themes]);
 
-  const handleApplyToFigma = () => {
-    parent.postMessage(
-      {
-        pluginMessage: {
-          type: "generate-theme",
-          primary,
-        },
-      },
-      "*"
-    );
-  };
+  // const handleApplyToFigma = () => {
+  //   parent.postMessage(
+  //     {
+  //       pluginMessage: {
+  //         type: "generate-theme",
+  //         primary,
+  //       },
+  //     },
+  //     "*"
+  //   );
+  // };
 
   // useEffect(() => {
   //   window.onmessage = (event) => {
@@ -36,23 +35,15 @@ const App = () => {
   // }, []);
 
   return (
-    <div className="p-4 text-sm font-sans">
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">Primary Color:</label>
-        <input
-          type="color"
-          value={primary}
-          onChange={(e) => setPrimary(e.target.value)}
-          className="w-24 h-10 p-0 border rounded" />
-      </div>
+    <div 
+      className="p-4 text-sm font-sans"
+      style={{
+        background: themes[theme].background.z0
+      }}>
+      <PrimaryColorPicker />
+      <ThemeToggle />
 
-      <div className="flex justify-between items-center gap-2 mb-6">
-        <button
-          onClick={handleGeneratePreview}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-          Preview Theme
-        </button>
-
+      {/* <div className="flex justify-between items-center gap-2 mb-6">
         {themes && (
           <button
             onClick={handleApplyToFigma}
@@ -60,59 +51,75 @@ const App = () => {
             Generate in Figma
           </button>
         )}
+      </div> */}
+
+      <div className="mb-8">
+        <h3 
+          className="font-semibold mt-2"
+          style={{
+            color: themes[theme].textStyles.base
+          }}>
+          Palette
+        </h3>
+        <div className="grid grid-cols-3 gap-2">
+          {
+            Object.entries(themes[theme].palette).map(([k, v]) => (
+              <Swatch key={k} name={k} color={v} />
+            ))
+          }
+        </div>
+
+        <h3 
+          className="font-semibold mt-4"
+          style={{
+            color: themes[theme].textStyles.base
+          }}>
+          Background Swatches (z0–z5)
+        </h3>
+        <div className="grid grid-cols-3 gap-2">
+          {
+            Object.entries(themes[theme].background).sort(
+              ([a], [b]) => Number(a.slice(1)) - Number(b.slice(1)) // Sort z0 → z8
+            ).map(([k, v]) => (
+              <Swatch key={k} name={k} color={v} />
+            ))
+          }
+        </div>
+
+        <h3 
+          className="font-semibold mt-4"
+          style={{
+            color: themes[theme].textStyles.base
+          }}>
+          Hover States
+        </h3>
+        <div className="grid grid-cols-3 gap-2">
+          {
+            Object.entries(themes[theme].paletteHover).map(([k, v]) => (
+              <Swatch key={k} name={k} color={v} />
+            ))
+          }
+        </div>
+
+        <h3 
+          className="font-semibold mt-4"
+          style={{
+            color: themes[theme].textStyles.base
+          }}>
+          Text on Colors
+        </h3>
+        <div className="grid grid-cols-3 gap-2">
+          {
+            Object.entries(themes[theme].textOnPalette)
+              .filter(([k]) => k.startsWith("text-base-on-"))
+              .map(([k, text]) => {
+                const key = k.replace("text-base-on-", "");
+                const bg = themes[theme].palette[key];
+                return <TextOnSwatch key={k} bg={bg} text={text} label={key} />;
+              })
+          }
+        </div>
       </div>
-
-      {themes &&
-        ["light", "dark"].map((mode) => {
-          const theme = themes[mode];
-          return (
-            <div key={mode} className="mb-8">
-              <h2 className="text-lg font-bold mb-2 capitalize">{mode} Theme</h2>
-
-              <h3 className="font-semibold mt-2">Palette</h3>
-              <div className="flex flex-wrap gap-2">
-                {
-                  Object.entries(theme.palette).map(([k, v]) => (
-                    <Swatch key={k} name={k} color={v} />
-                  ))
-                }
-              </div>
-
-              <h3 className="font-semibold mt-4">Background Swatches (z0–z8)</h3>
-              <div className="flex flex-wrap gap-2">
-                {
-                  Object.entries(theme.background).sort(
-                    ([a], [b]) => Number(a.slice(1)) - Number(b.slice(1)) // Sort z0 → z8
-                  ).map(([k, v]) => (
-                    <Swatch key={k} name={k} color={v} />
-                  ))
-                }
-              </div>
-
-              <h3 className="font-semibold mt-4">Hover / Focus States</h3>
-              <div className="flex flex-wrap gap-2">
-                {
-                  Object.entries(theme.hoverFocus).map(([k, v]) => (
-                    <Swatch key={k} name={k} color={v} />
-                  ))
-                }
-              </div>
-
-              <h3 className="font-semibold mt-4">Text on Colors</h3>
-              <div className="flex flex-wrap gap-2">
-                {
-                  Object.entries(theme.textOnPalette)
-                    .filter(([k]) => k.startsWith("text-base-on-"))
-                    .map(([k, text]) => {
-                      const key = k.replace("text-base-on-", "");
-                      const bg = theme.palette[key];
-                      return <TextOnSwatch key={k} bg={bg} text={text} label={key} />;
-                    })
-                }
-              </div>
-            </div>
-          );
-        })}
     </div>
   );
 };
