@@ -29,11 +29,18 @@ const TextOnSwatch = ({
         Aa
       </div>
       <div 
-        className="mt-1"
+        className="mt-1 font-medium"
         style={{
           color: themes[theme].textStyles.base
         }}>
         {label}
+      </div>
+      <div 
+        className="mt-1 font-mono"
+        style={{
+          color: themes[theme].textStyles.lighter,
+        }}>
+        {text}
       </div>
       <div
         className="absolute top-2 right-2 px-1 text-[10px] rounded-bl"

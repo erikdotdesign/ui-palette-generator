@@ -4,6 +4,11 @@ import TextOnSwatch from './TextOnSwatch';
 import PrimaryColorPicker from './PrimaryColorPicker';
 import { ThemeContext } from './ThemeProvider';
 import ThemeToggle from './ThemeToggle';
+import SectionHead from './SectionHead';
+import PaletteSwatches from './PaletteSwatches';
+import BackgroundSwatches from './BackgroundSwatches';
+import HoverSwatches from './HoverSwatches';
+import TextOnPaletteSwatches from './TextOnPaletteSwatches';
 import "./App.css";
 
 const App = () => {
@@ -38,84 +43,10 @@ const App = () => {
       }}>
       <PrimaryColorPicker />
       <ThemeToggle />
-
-      {/* <div className="flex justify-between items-center gap-2 mb-6">
-        {themes && (
-          <button
-            onClick={handleApplyToFigma}
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
-            Generate in Figma
-          </button>
-        )}
-      </div> */}
-
-      <div className="mb-2">
-        <h3 
-          className="font-semibold mt-2 mb-4"
-          style={{
-            color: themes[theme].textStyles.base
-          }}>
-          Palette
-        </h3>
-        <div className="grid grid-cols-3 gap-2">
-          {
-            Object.entries(themes[theme].palette).map(([k, v]) => (
-              <Swatch key={k} name={k} color={v} />
-            ))
-          }
-        </div>
-
-        <h3 
-          className="font-semibold mt-4 mb-4"
-          style={{
-            color: themes[theme].textStyles.base
-          }}>
-          Background Swatches (z0–z5)
-        </h3>
-        <div className="grid grid-cols-3 gap-2">
-          {
-            Object.entries(themes[theme].background).sort(
-              ([a], [b]) => Number(a.slice(1)) - Number(b.slice(1)) // Sort z0 → z8
-            ).map(([k, v]) => (
-              <Swatch key={k} name={k} color={v} />
-            ))
-          }
-        </div>
-
-        <h3 
-          className="font-semibold mt-4 mb-4"
-          style={{
-            color: themes[theme].textStyles.base
-          }}>
-          Hover States
-        </h3>
-        <div className="grid grid-cols-3 gap-2">
-          {
-            Object.entries(themes[theme].paletteHover).map(([k, v]) => (
-              <Swatch key={k} name={k} color={v} />
-            ))
-          }
-        </div>
-
-        <h3 
-          className="font-semibold mt-4 mb-4"
-          style={{
-            color: themes[theme].textStyles.base
-          }}>
-          Text on Colors
-        </h3>
-        <div className="grid grid-cols-3 gap-2">
-          {
-            Object.entries(themes[theme].textOnPalette)
-              .filter(([k]) => k.startsWith("text-base-on-"))
-              .map(([k, text]) => {
-                const key = k.replace("text-base-on-", "");
-                const bg = themes[theme].palette[key];
-                return <TextOnSwatch key={k} bg={bg} text={text} label={key} />;
-              })
-          }
-        </div>
-      </div>
+      <PaletteSwatches />
+      <BackgroundSwatches />
+      <HoverSwatches />
+      <TextOnPaletteSwatches />
     </div>
   );
 };

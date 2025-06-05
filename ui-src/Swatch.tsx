@@ -15,11 +15,18 @@ const Swatch = ({ name, color, label }: { name: string; color: any; label?: stri
         className="w-full h-16 rounded flex items-center justify-center text-sm"
         style={{ backgroundColor: color }} />
       <div 
-        className="mt-1"
+        className="mt-1 font-medium"
         style={{
           color: themes[theme].textStyles.base,
         }}>
         {label || name}
+      </div>
+      <div 
+        className="mt-1 font-mono"
+        style={{
+          color: themes[theme].textStyles.lighter,
+        }}>
+        {color}
       </div>
     </div>
   );

@@ -1,13 +1,13 @@
 import ReactDOM from "react-dom";
 import App from "./App";
-import PrimaryColorProvider from "./PrimaryColorProvider";
+import ThemeConfigProvider from "./ThemeConfigProvider";
 import ThemeProvider from "./ThemeProvider";
 
 ReactDOM.render(
-  <PrimaryColorProvider>
+  <ThemeConfigProvider>
     <ThemeProvider>
       <App />
     </ThemeProvider>
-  </PrimaryColorProvider>
+  </ThemeConfigProvider>
   , document.getElementById("root")
 );

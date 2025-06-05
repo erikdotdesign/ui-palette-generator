@@ -1,7 +1,7 @@
 import React, { createContext, ReactElement, useContext, useEffect, useState } from 'react';
 import { generateThemes, ThemeOptions, ThemeType } from './theme-generator';
 import { DEFAULT_PRIMARY_COLOR, DEFAULT_THEME } from './constants';
-import { PrimaryColorContext } from './PrimaryColorProvider';
+import { ThemeConfigContext } from './ThemeConfigProvider';
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -23,7 +23,7 @@ const ThemeContext = createContext<ThemeContextProps>({
 
 const ThemeProvider = (props: ThemeProviderProps): ReactElement => {
   const { children } = props;
-  const { primaryColor } = useContext(PrimaryColorContext);
+  const { primaryColor } = useContext(ThemeConfigContext);
   const [theme, setTheme] = useState<ThemeType>(DEFAULT_THEME);
   const [themes, setThemes] = useState<any>(generateThemes({primary: DEFAULT_PRIMARY_COLOR}));
 

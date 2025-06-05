@@ -60,13 +60,35 @@ const generateUtilityColor = (
   return ensureContrast(baseColor, background, type);
 };
 
+// Compliment (±180°)
+const generateSecondaryComplimentary = (base: chroma.Color) => {
+  const hue = base.get("hsl.h");
+  const analogousHue = (hue + 180) % 360;
+  return base.set("hsl.h", analogousHue).hex();
+};
+
+// Analogous (±30°)
+const generateSecondaryAnalogous = (base: chroma.Color) => {
+  const hue = base.get("hsl.h");
+  const analogousHue = (hue + 30) % 360;
+  return base.set("hsl.h", analogousHue).hex();
+};
+
+// Split Complementary
+const generateSecondarySplitComplement = (base: chroma.Color, side: 'left' | 'right' = 'left') => {
+  const hue = base.get("hsl.h");
+  const offset = side === 'left' ? 150 : 210;
+  const newHue = (hue + offset) % 360;
+  return base.set("hsl.h", newHue).hex();
+};
+
 const generateCorePalette = (base: chroma.Color, type: ThemeType) => {
   const hue = base.get("hsl.h");
   const z0Background = generateBackgrounds(base, type)["z0"];
 
   return {
     primary: base.hex(),
-    secondary: base.set("hsl.h", (hue + 180) % 360).hex(),
+    secondary: generateSecondaryAnalogous(base),
     success: generateUtilityColor(120, z0Background, type, 0.6, 0.5), // green
     warn: generateUtilityColor(40, z0Background, type, 1, 0.6),       // yellow
     error: generateUtilityColor(0, z0Background, type, 0.8, 0.5),     // red

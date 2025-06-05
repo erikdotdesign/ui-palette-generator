@@ -1,30 +1,30 @@
 import React, { useState, createContext, ReactElement } from 'react';
 import { DEFAULT_PRIMARY_COLOR } from './constants';
 
-interface PrimaryColorProviderProps {
+interface ThemeConfigProviderProps {
   children: React.ReactNode;
 }
 
-interface PrimaryColorContextProps {
+interface ThemeConfigContextProps {
   primaryColor: string;
   setPrimaryColor: (primaryColor: string) => void;
 }
 
-const PrimaryColorContext = createContext<PrimaryColorContextProps>({
+const ThemeConfigContext = createContext<ThemeConfigContextProps>({
   primaryColor: DEFAULT_PRIMARY_COLOR,
   setPrimaryColor: () => {}
 });
 
-const PrimaryColorProvider = (props: PrimaryColorProviderProps): ReactElement => {
+const ThemeConfigProvider = (props: ThemeConfigProviderProps): ReactElement => {
   const { children } = props;
   const [primaryColor, setPrimaryColor] = useState(DEFAULT_PRIMARY_COLOR);
   return (
-    <PrimaryColorContext.Provider value={{primaryColor, setPrimaryColor}}>
+    <ThemeConfigContext.Provider value={{primaryColor, setPrimaryColor}}>
       { children }
-    </PrimaryColorContext.Provider>
+    </ThemeConfigContext.Provider>
   )
 };
 
-export default PrimaryColorProvider;
+export default ThemeConfigProvider;
 
-export { PrimaryColorContext };
+export { ThemeConfigContext };
