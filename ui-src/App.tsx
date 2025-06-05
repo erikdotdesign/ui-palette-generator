@@ -9,10 +9,6 @@ import "./App.css";
 const App = () => {
   const { themes, theme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    console.log(themes);
-  }, [themes]);
-
   // const handleApplyToFigma = () => {
   //   parent.postMessage(
   //     {
@@ -53,9 +49,9 @@ const App = () => {
         )}
       </div> */}
 
-      <div className="mb-8">
+      <div className="mb-2">
         <h3 
-          className="font-semibold mt-2"
+          className="font-semibold mt-2 mb-4"
           style={{
             color: themes[theme].textStyles.base
           }}>
@@ -70,7 +66,7 @@ const App = () => {
         </div>
 
         <h3 
-          className="font-semibold mt-4"
+          className="font-semibold mt-4 mb-4"
           style={{
             color: themes[theme].textStyles.base
           }}>
@@ -87,7 +83,7 @@ const App = () => {
         </div>
 
         <h3 
-          className="font-semibold mt-4"
+          className="font-semibold mt-4 mb-4"
           style={{
             color: themes[theme].textStyles.base
           }}>
@@ -102,7 +98,7 @@ const App = () => {
         </div>
 
         <h3 
-          className="font-semibold mt-4"
+          className="font-semibold mt-4 mb-4"
           style={{
             color: themes[theme].textStyles.base
           }}>

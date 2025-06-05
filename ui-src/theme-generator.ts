@@ -89,7 +89,7 @@ const generateBackgrounds = (base: chroma.Color, type: ThemeType) => {
       ? chroma.mix("#fff", base, stop)
       : chroma.mix("#000", base, stop);
     
-    const label = `z${4 - i}`; // Invert the index
+    const label = `z${4 - i}`;
     acc[label] = color.hex();
     return acc;
   }, {} as Record<string, string>);
