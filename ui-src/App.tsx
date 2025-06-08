@@ -10,6 +10,7 @@ import PaletteSwatches from './PaletteSwatches';
 import BackgroundSwatches from './BackgroundSwatches';
 import HoverSwatches from './HoverSwatches';
 import TextOnPaletteSwatches from './TextOnPaletteSwatches';
+import TextSwatches from './TextSwatches';
 import "./App.css";
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
       <ThemeToggle />
       <PaletteSwatches />
       <BackgroundSwatches />
+      <TextSwatches />
       <HoverSwatches />
       <TextOnPaletteSwatches />
     </div>

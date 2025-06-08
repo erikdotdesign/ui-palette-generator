@@ -17,14 +17,14 @@ const Swatch = ({ name, color, label }: { name: string; color: any; label?: stri
       <div 
         className="mt-1 font-medium"
         style={{
-          color: themes[theme].textStyles.base,
+          color: themes[theme].text.base,
         }}>
         {label || name}
       </div>
       <div 
         className="mt-1 font-mono"
         style={{
-          color: themes[theme].textStyles.lighter,
+          color: themes[theme].text.lighter,
         }}>
         {color}
       </div>

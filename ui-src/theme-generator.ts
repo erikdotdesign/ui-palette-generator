@@ -19,14 +19,14 @@ const generateTheme = (primary: string, secondaryColorType: SecondaryColorType, 
   const background = generateBackgrounds(base, type);
   const palette = generateCorePalette(base, secondaryColorType, type);
   const paletteHover = generatePaletteHover(palette, type);
-  const textStyles = generateTextStyles(type);
+  const text = generateTextStyles(type);
   const textOnPalette = generateTextOnPalette(palette, type);
 
   return {
     palette,
     background,
     paletteHover,
-    textStyles,
+    text,
     textOnPalette,
   };
 };

@@ -26,7 +26,7 @@ const PrimaryColorPicker = () => {
           htmlFor="primaryColor"
           className="text-sm w-full h-full pl-14 p-4 rounded-lg cursor-pointer"
           style={{
-            color: themes[theme].textStyles.base,
+            color: themes[theme].text.base,
             background: themes[theme].background.z1,
           }}>
           { primaryColor }

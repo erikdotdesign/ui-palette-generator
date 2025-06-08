@@ -8,7 +8,7 @@ const SectionHead = ({ text }: { text: string }) => {
     <h3 
       className="font-semibold mb-4"
       style={{
-        color: themes[theme].textStyles.base
+        color: themes[theme].text.base
       }}>
       { text }
     </h3>
