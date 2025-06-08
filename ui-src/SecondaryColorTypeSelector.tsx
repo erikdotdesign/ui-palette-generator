@@ -25,7 +25,7 @@ const SecondaryColorTypeSelector = () => {
 
   return (
     <div className="mb-4">
-      <SectionHead text="Secondary Color" />
+      <SectionHead text="Secondary color" />
       <div className="grid grid-cols-4 gap-2">
         {
           secondaryColorTypes.map((sct) => (

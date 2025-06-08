@@ -9,7 +9,7 @@ const PrimaryColorPicker = () => {
 
   return (
     <div className="mb-4">
-      <SectionHead text="Primary Color" />
+      <SectionHead text="Primary color" />
       <div className="flex relative">
         <input
           id="primaryColor"
