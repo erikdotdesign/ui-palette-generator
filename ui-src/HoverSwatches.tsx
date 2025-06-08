@@ -1,13 +1,7 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import Swatch from './Swatch';
-import TextOnSwatch from './TextOnSwatch';
-import PrimaryColorPicker from './PrimaryColorPicker';
 import { ThemeContext } from './ThemeProvider';
-import ThemeToggle from './ThemeToggle';
 import SectionHead from './SectionHead';
-import PaletteSwatches from './PaletteSwatches';
-import BackgroundSwatches from './BackgroundSwatches';
-import "./App.css";
 
 const HoverSwatches = () => {
   const { themes, theme } = useContext(ThemeContext);

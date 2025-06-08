@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import Swatch from './Swatch';
 import TextOnSwatch from './TextOnSwatch';
 import PrimaryColorPicker from './PrimaryColorPicker';
+import SecondaryColorTypeSelector from './SecondaryColorTypeSelector';
 import { ThemeContext } from './ThemeProvider';
 import ThemeToggle from './ThemeToggle';
 import SectionHead from './SectionHead';
@@ -42,6 +43,7 @@ const App = () => {
         background: themes[theme].background.z0
       }}>
       <PrimaryColorPicker />
+      <SecondaryColorTypeSelector />
       <ThemeToggle />
       <PaletteSwatches />
       <BackgroundSwatches />

@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import TextOnSwatch from './TextOnSwatch';
 import { ThemeContext } from './ThemeProvider';
 import SectionHead from './SectionHead';
-import "./App.css";
 
 const TextOnPaletteSwatches = () => {
   const { themes, theme } = useContext(ThemeContext);

@@ -2,19 +2,22 @@ import chroma from "chroma-js";
 
 export type ThemeType = "light" | "dark";
 
+export type SecondaryColorType = "complimentary" | "split-compliment-left" | "split-compliment-right" | "analogous";
+
 export interface ThemeOptions {
   primary: string;
+  secondaryColorType: SecondaryColorType;
 }
 
-export const generateThemes = ({ primary }: ThemeOptions) => ({
-  light: generateTheme(primary, "light"),
-  dark: generateTheme(primary, "dark"),
+export const generateThemes = ({ primary, secondaryColorType }: ThemeOptions) => ({
+  light: generateTheme(primary, secondaryColorType, "light"),
+  dark: generateTheme(primary, secondaryColorType, "dark"),
 });
 
-const generateTheme = (primary: string, type: ThemeType) => {
+const generateTheme = (primary: string, secondaryColorType: SecondaryColorType, type: ThemeType) => {
   const base = chroma(primary);
   const background = generateBackgrounds(base, type);
-  const palette = generateCorePalette(base, type);
+  const palette = generateCorePalette(base, secondaryColorType, type);
   const paletteHover = generatePaletteHover(palette, type);
   const textStyles = generateTextStyles(type);
   const textOnPalette = generateTextOnPalette(palette, type);
@@ -82,16 +85,32 @@ const generateSecondarySplitComplement = (base: chroma.Color, side: 'left' | 'ri
   return base.set("hsl.h", newHue).hex();
 };
 
-const generateCorePalette = (base: chroma.Color, type: ThemeType) => {
+export const getSecondaryColor = (base: chroma.Color, secondaryColorType: SecondaryColorType) => {
+  switch(secondaryColorType) {
+    case 'analogous':
+      return generateSecondaryAnalogous(base);
+    case 'complimentary':
+      return generateSecondaryComplimentary(base);
+    case 'split-compliment-left':
+      return generateSecondarySplitComplement(base, 'left');
+    case 'split-compliment-right':
+      return generateSecondarySplitComplement(base, 'right');
+    default:
+      return generateSecondaryAnalogous(base);
+  }
+}
+
+const generateCorePalette = (base: chroma.Color, secondaryColorType: SecondaryColorType, type: ThemeType) => {
   const hue = base.get("hsl.h");
   const z0Background = generateBackgrounds(base, type)["z0"];
 
   return {
     primary: base.hex(),
-    secondary: generateSecondaryAnalogous(base),
+    secondary: getSecondaryColor(base, secondaryColorType),
     success: generateUtilityColor(120, z0Background, type, 0.6, 0.5), // green
     warn: generateUtilityColor(40, z0Background, type, 1, 0.6),       // yellow
     error: generateUtilityColor(0, z0Background, type, 0.8, 0.5),     // red
+    info: generateUtilityColor(210, z0Background, type, 0.6, 0.55),   // blue
   };
 };
 
@@ -105,13 +124,13 @@ const generatePaletteHover = (palette: Record<string, string>, type: ThemeType) 
 };
 
 const generateBackgrounds = (base: chroma.Color, type: ThemeType) => {
-  const stops = Array.from({ length: 5 }, (_, i) => (5 - i) / 10);
+  const stops = Array.from({ length: 6 }, (_, i) => (6 - i) / 10);
   return stops.reduce((acc, stop, i) => {
     const color = type === "light"
       ? chroma.mix("#fff", base, stop)
       : chroma.mix("#000", base, stop);
     
-    const label = `z${4 - i}`;
+    const label = `z${5 - i}`;
     acc[label] = color.hex();
     return acc;
   }, {} as Record<string, string>);
@@ -147,6 +166,6 @@ const generateTextOnPalette = (palette: Record<string, string>, type: ThemeType)
   );
 };
 
-const darken = (hex: string, amount = 0.1) => chroma(hex).darken(amount * 10).hex();
+const darken = (hex: string, amount = 0.1) => chroma.mix(hex, "#000", amount).hex();
 
-const lighten = (hex: string, amount = 0.1) => chroma(hex).brighten(amount * 10).hex();
+const lighten = (hex: string, amount = 0.1) => chroma.mix(hex, "#fff", amount).hex();

@@ -1,6 +1,6 @@
 import React, { createContext, ReactElement, useContext, useEffect, useState } from 'react';
 import { generateThemes, ThemeOptions, ThemeType } from './theme-generator';
-import { DEFAULT_PRIMARY_COLOR, DEFAULT_THEME } from './constants';
+import { DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR_TYPE, DEFAULT_THEME } from './constants';
 import { ThemeConfigContext } from './ThemeConfigProvider';
 
 interface ThemeProviderProps {
@@ -15,7 +15,10 @@ interface ThemeContextProps {
 }
 
 const ThemeContext = createContext<ThemeContextProps>({
-  themes: generateThemes({primary: DEFAULT_PRIMARY_COLOR}),
+  themes: generateThemes({
+    primary: DEFAULT_PRIMARY_COLOR,
+    secondaryColorType: DEFAULT_SECONDARY_COLOR_TYPE
+  }),
   theme: DEFAULT_THEME,
   setThemes: () => {},
   setTheme: () => {}
@@ -23,13 +26,19 @@ const ThemeContext = createContext<ThemeContextProps>({
 
 const ThemeProvider = (props: ThemeProviderProps): ReactElement => {
   const { children } = props;
-  const { primaryColor } = useContext(ThemeConfigContext);
+  const { primaryColor, secondaryColorType } = useContext(ThemeConfigContext);
   const [theme, setTheme] = useState<ThemeType>(DEFAULT_THEME);
-  const [themes, setThemes] = useState<any>(generateThemes({primary: DEFAULT_PRIMARY_COLOR}));
+  const [themes, setThemes] = useState<any>(generateThemes({
+    primary: DEFAULT_PRIMARY_COLOR,
+    secondaryColorType: DEFAULT_SECONDARY_COLOR_TYPE
+  }));
 
   useEffect(() => {
-    setThemes(generateThemes({primary: primaryColor}));
-  }, [primaryColor]);
+    setThemes(generateThemes({
+      primary: primaryColor,
+      secondaryColorType: secondaryColorType
+    }));
+  }, [primaryColor, secondaryColorType]);
 
   return (
     <ThemeContext.Provider value={{

@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import Swatch from './Swatch';
 import { ThemeContext } from './ThemeProvider';
 import SectionHead from './SectionHead';
-import "./App.css";
 
 const BackgroundSwatches = () => {
   const { themes, theme } = useContext(ThemeContext);
