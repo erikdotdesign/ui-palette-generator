@@ -44,9 +44,9 @@ const SecondaryColorTypeSelector = () => {
                 htmlFor={sct.value}
                 title={sct.name}
                 style={{
-                  color: sct.value === secondaryColorType ? themes[theme].textOnPalette['text-base-on-primary'] : themes[theme].text.base,
+                  color: sct.value === secondaryColorType ? themes[theme].textOnPalette.textBaseOnPrimary : themes[theme].text.base,
                   background: themes[theme].background.z1,
-                  boxShadow: `0 0 0 2px ${sct.value === secondaryColorType ? themes[theme].palette.primary : themes[theme].background.z1}`
+                  boxShadow: `0 0 0 2px ${sct.value === secondaryColorType ? themes[theme].paletteHover.primary : themes[theme].background.z1}`
                 }}>
                 <div
                   className="w-full h-9 rounded"

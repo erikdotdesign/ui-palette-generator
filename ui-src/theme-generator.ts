@@ -27,7 +27,7 @@ const generateTheme = (primary: string, secondaryColorType: SecondaryColorType, 
     background,
     paletteHover,
     text,
-    textOnPalette,
+    textOnPalette
   };
 };
 
@@ -101,7 +101,6 @@ export const getSecondaryColor = (base: chroma.Color, secondaryColorType: Second
 }
 
 const generateCorePalette = (base: chroma.Color, secondaryColorType: SecondaryColorType, type: ThemeType) => {
-  const hue = base.get("hsl.h");
   const z0Background = generateBackgrounds(base, type)["z0"];
 
   return {
@@ -118,7 +117,7 @@ const generatePaletteHover = (palette: Record<string, string>, type: ThemeType) 
   const adjust = type === "light" ? darken : lighten;
   return Object.fromEntries(
     Object.entries(palette).flatMap(([key, value]) => [
-      [key, adjust(value, 0.1)]
+      [key, adjust(value, 0.2)]
     ])
   );
 };
@@ -146,6 +145,10 @@ const generateTextStyles = (type: ThemeType) => {
   };
 };
 
+const capitalizeFirstLetter = (word: string) => {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};
+
 const generateTextOnPalette = (palette: Record<string, string>, type: ThemeType) => {
   const lightText = "#fff";
   const darkText = "#000";
@@ -155,12 +158,13 @@ const generateTextOnPalette = (palette: Record<string, string>, type: ThemeType)
       const lightContrast = chroma.contrast(bg, lightText);
       const darkContrast = chroma.contrast(bg, darkText);
       const best = lightContrast >= 3.1 ? lightText : darkContrast >= 3.1 ? darkText : lightContrast > darkContrast ? lightText : darkText;
+      const upperCaseKey = capitalizeFirstLetter(key);
 
       return [
-        [`text-base-on-${key}`, best],
-        [`text-light-on-${key}`, chroma(best).alpha(0.75).css()],
-        [`text-lighter-on-${key}`, chroma(best).alpha(0.5).css()],
-        [`text-lightest-on-${key}`, chroma(best).alpha(0.33).css()],
+        [`textBaseOn${upperCaseKey}`, best],
+        [`textLightOn${upperCaseKey}`, chroma(best).alpha(0.75).css()],
+        [`textLighterOn${upperCaseKey}`, chroma(best).alpha(0.5).css()],
+        [`textLightestOn${upperCaseKey}`, chroma(best).alpha(0.33).css()],
       ];
     })
   );

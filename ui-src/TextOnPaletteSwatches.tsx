@@ -12,9 +12,9 @@ const TextOnPaletteSwatches = () => {
       <div className="grid grid-cols-3 gap-2">
         {
           Object.entries(themes[theme].textOnPalette)
-            .filter(([k]) => k.startsWith("text-base-on-"))
+            .filter(([k]) => k.startsWith("textBaseOn"))
             .map(([k, text]) => {
-              const key = k.replace("text-base-on-", "");
+              const key = k.replace("textBaseOn", "").toLowerCase();
               const bg = themes[theme].palette[key];
               return <TextOnSwatch key={k} bg={bg} text={text} label={key} />;
             })

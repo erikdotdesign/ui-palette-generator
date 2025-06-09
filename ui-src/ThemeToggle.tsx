@@ -25,7 +25,7 @@ const ThemeToggle = () => {
                 className="w-full text-center p-3 rounded-lg cursor-pointer"
                 htmlFor={k}
                 style={{
-                  color: k === theme ? themes[theme].textOnPalette['text-base-on-primary'] : themes[theme].text.base,
+                  color: k === theme ? themes[theme].textOnPalette.textBaseOnPrimary : themes[theme].text.base,
                   background: k === theme ? themes[theme].palette.primary : themes[theme].background.z1,
                   // boxShadow: `0 0 0 1px ${k === theme ? themes[theme].palette.primary : themes[theme].background.z3}`
                 }}>

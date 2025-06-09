@@ -49,7 +49,7 @@ const TextOnSwatch = ({
             className="absolute top-2 right-2 px-1 text-[10px] rounded-bl"
             style={{
               background: isPass ? themes[theme].palette.success : themes[theme].palette.error,
-              color: isPass ? themes[theme].textOnPalette[`text-base-on-success`] : themes[theme].textOnPalette[`text-base-on-error`]
+              color: isPass ? themes[theme].textOnPalette.textBaseOnSuccess : themes[theme].textOnPalette.textBaseOnError
             }}>
             {contrast}
           </div>

@@ -12,7 +12,7 @@ const BackgroundSwatches = () => {
       <div className="grid grid-cols-3 gap-2">
         {
           Object.entries(themes[theme].background).sort(
-            ([a], [b]) => Number(a.slice(1)) - Number(b.slice(1)) // Sort z0 → z8
+            ([a], [b]) => Number(a.slice(1)) - Number(b.slice(1)) // Sort z0 → z5
           ).map(([k, v]) => (
             <Swatch key={k} name={k} color={v} />
           ))
