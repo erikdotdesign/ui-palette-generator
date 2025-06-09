@@ -1,40 +1,53 @@
-Below are the steps to get your plugin running. You can also find instructions at:
+# UI Palette Generator (Figma plugin)
 
-  https://www.figma.com/plugin-docs/plugin-quickstart-guide/
+Supply a primary color and the plugin will generate accessible light and dark themed ui color palettes. 
 
-This plugin template uses Typescript and NPM, two standard tools in creating JavaScript applications.
+![Screenshot](screenshot.png)
 
-First, download Node.js which comes with NPM. This will allow you to install TypeScript and other
-libraries. You can find the download link here:
+Each palette includes:
 
-  https://nodejs.org/en/download/
+Palette
 
-Next, install TypeScript using the command:
+- Primary
+- Secondary (primary analogous, complementary, split compliment left, or split compliment right)
+- Success
+- Warn
+- Error
+- Info
 
-  npm install -g typescript
+Background
 
-Finally, in the directory of your plugin, get the latest type definitions for the plugin API by running:
+- z0
+- z1
+- z2
+- z3
+- z4
+- z5
 
-  npm install --save-dev @figma/plugin-typings
+Palette hover
 
-If you are familiar with JavaScript, TypeScript will look very familiar. In fact, valid JavaScript code
-is already valid Typescript code.
+- Primary
+- Secondary
+- Success
+- Warn
+- Error
+- Info
 
-TypeScript adds type annotations to variables. This allows code editors such as Visual Studio Code
-to provide information about the Figma API while you are writing code, as well as help catch bugs
-you previously didn't notice.
+Text
 
-For more information, visit https://www.typescriptlang.org/
+- base (either #000 or #fff)
+- light (base @ 75% opacity)
+- lighter (base @ 50% opacity)
+- lightest (base @ 33% opacity)
 
-Using TypeScript requires a compiler to convert TypeScript (code.ts) into JavaScript (code.js)
-for the browser to run.
+Text on palette
 
-We recommend writing TypeScript code using Visual Studio code:
+- textBaseOnPrimary
+- textLightOnPrimary
+- textLighterOnPrimary
+- textLightestOnPrimary
+- etc
 
-1. Download Visual Studio Code if you haven't already: https://code.visualstudio.com/.
-2. Open this directory in Visual Studio Code.
-3. Compile TypeScript to JavaScript: Run the "Terminal > Run Build Task..." menu item,
-    then select "npm: watch". You will have to do this again every time
-    you reopen Visual Studio Code.
+Clicking "Add to document" will add both the light and dark themes as variable modes. If you're using the free plan, only the selected theme is added. 
 
-That's it! Visual Studio Code will regenerate the JavaScript file every time you save.
+The plugin UI provides a live preview of the generated palettes in use.
