@@ -2,7 +2,7 @@ import chroma from "chroma-js";
 
 export type ThemeType = "light" | "dark";
 
-export type SecondaryColorType = "complimentary" | "split-compliment-left" | "split-compliment-right" | "analogous";
+export type SecondaryColorType = "complementary" | "split-compliment-left" | "split-compliment-right" | "analogous";
 
 export interface ThemeOptions {
   primary: string;
@@ -64,7 +64,7 @@ const generateUtilityColor = (
 };
 
 // Compliment (±180°)
-const generateSecondaryComplimentary = (base: chroma.Color) => {
+const generateSecondaryComplementary = (base: chroma.Color) => {
   const hue = base.get("hsl.h");
   const analogousHue = (hue + 180) % 360;
   return base.set("hsl.h", analogousHue).hex();
@@ -89,8 +89,8 @@ export const getSecondaryColor = (base: chroma.Color, secondaryColorType: Second
   switch(secondaryColorType) {
     case 'analogous':
       return generateSecondaryAnalogous(base);
-    case 'complimentary':
-      return generateSecondaryComplimentary(base);
+    case 'complementary':
+      return generateSecondaryComplementary(base);
     case 'split-compliment-left':
       return generateSecondarySplitComplement(base, 'left');
     case 'split-compliment-right':

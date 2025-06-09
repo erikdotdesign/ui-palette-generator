@@ -13,8 +13,8 @@ const SecondaryColorTypeSelector = () => {
     value: 'analogous',
     name: 'Analogous'
   },{
-    value: 'complimentary',
-    name: 'Complimentary'
+    value: 'complementary',
+    name: 'Complementary'
   },{
     value: 'split-compliment-left',
     name: 'Split Compliment Left'
