@@ -1,6 +1,6 @@
 import chroma from 'chroma-js';
 import { useContext } from 'react';
-import { getSecondaryColor } from './theme-generator';
+import { getSecondaryColor } from './themeGenerator';
 import { ThemeConfigContext } from './ThemeConfigProvider';
 import { ThemeContext } from './ThemeProvider';
 import SectionHead from './SectionHead';

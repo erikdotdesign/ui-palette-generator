@@ -1,6 +1,6 @@
 import React, { createContext, ReactElement, useContext, useEffect, useState } from 'react';
-import { generateThemes, ThemeOptions, ThemeType } from './theme-generator';
-import { DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR_TYPE, DEFAULT_THEME } from './constants';
+import { generateThemes, ThemeOptions, ThemeType } from './themeGenerator';
+import { DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR_TYPE, DEFAULT_THEME, STORAGE_KEY_DEFAULT_THEME } from './constants';
 import { ThemeConfigContext } from './ThemeConfigProvider';
 
 interface ThemeProviderProps {
@@ -39,6 +39,12 @@ const ThemeProvider = (props: ThemeProviderProps): ReactElement => {
       secondaryColorType: secondaryColorType
     }));
   }, [primaryColor, secondaryColorType]);
+
+  useEffect(() => {
+    parent.postMessage({
+      pluginMessage: { type: "save-storage", key: STORAGE_KEY_DEFAULT_THEME, value: theme },
+    }, "*");
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{

@@ -1,9 +1,10 @@
 import chroma from "chroma-js";
+import { PLUGIN_NAME } from '../ui-src/constants';
 
 figma.showUI(__html__, { width: 400, height: 600 });
 
 const createThemeVariableCollection = async (defaultTheme: 'light' | 'dark') => {
-  const collectionName = "ui-palette-generator";
+  const collectionName = PLUGIN_NAME;
   const collections = await figma.variables.getLocalVariableCollectionsAsync();
   let collection = collections.find(c => c.name === collectionName);
 
@@ -82,6 +83,14 @@ const createColorVariables = async ({themes, defaultTheme}) => {
 };
 
 figma.ui.onmessage = async (msg) => {
+  if (msg.type === 'save-storage') {
+    await figma.clientStorage.setAsync(msg.key, msg.value);
+  }
+
+  if (msg.type === 'load-storage') {
+    const value = await figma.clientStorage.getAsync(msg.key);
+    figma.ui.postMessage({ type: 'storage-loaded', key: msg.key, value });
+  }
   if (msg.type === "generate-theme") {
     await createColorVariables({
       themes: msg.payload.themes,
