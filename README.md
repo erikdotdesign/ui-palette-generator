@@ -1,53 +1,30 @@
-# UI Palette Generator (Figma plugin)
+# UI Palette Generator
 
-Supply a primary color and the plugin will generate accessible light and dark themed ui color palettes. 
+UI Palette Generator is a Figma plugin that instantly creates accessible light and dark UI color palettes based on a single primary color. Perfect for designers building scalable, consistent design systems, it automatically generates all necessary palette shades, hover states, backgrounds, and text colors — ensuring optimal contrast and readability.
 
 ![Screenshot](screenshot.png)
 
-Each palette includes:
+## Key Features
 
-Palette
+**Primary-to-Palette Generation** \
+Create a full set of primary, secondary, success, warning, error, and info colors from one primary color.
 
-- Primary
-- Secondary (primary analogous, complementary, split compliment left, or split compliment right)
-- Success
-- Warn
-- Error
-- Info
+**Background Shades (z0–z5)** \
+Smoothly blended background colors for depth and elevation in both light and dark themes.
 
-Background
+**Hover Variants** \
+Automatically generates hover states for all palette colors.
 
-- z0
-- z1
-- z2
-- z3
-- z4
-- z5
+**Text Scales** \
+Includes base, light, lighter, and lightest text opacities.
 
-Palette hover
+**Text on Palette** \
+Provides accessible text-on-color pairs (e.g., textBaseOnPrimary).
 
-- Primary
-- Secondary
-- Success
-- Warn
-- Error
-- Info
+**Variable Mode Support** \
+Adds light and dark palettes as variable modes with one click (free plan adds only the selected theme).
 
-Text
+**Live Preview** \
+Instantly see how generated colors look in real UI components.
 
-- base (either #000 or #fff)
-- light (base @ 75% opacity)
-- lighter (base @ 50% opacity)
-- lightest (base @ 33% opacity)
-
-Text on palette
-
-- textBaseOnPrimary
-- textLightOnPrimary
-- textLighterOnPrimary
-- textLightestOnPrimary
-- etc
-
-Clicking "Add to document" will add both the light and dark themes as variable modes. If you're using the free plan, only the selected theme is added. 
-
-The plugin UI provides a live preview of the generated palettes in use.
+Ideal for UI designers and teams who need fast, accessible, and systematic color palettes that are ready to use in Figma.
