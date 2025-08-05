@@ -52,6 +52,25 @@ const ensureContrast = (
   return adjusted.hex();
 };
 
+export const getReadableTextColor = (
+  background: string | string[]
+): "#000" | "#fff" => {
+  let bgColor: string;
+
+  if (Array.isArray(background)) {
+    const avg = chroma.average(background, "rgb");
+    bgColor = avg.hex();
+  } else {
+    bgColor = background;
+  }
+
+  const contrastWhite = chroma.contrastAPCA("#fff", bgColor); // typically negative
+  const contrastBlack = chroma.contrastAPCA("#000", bgColor); // typically positive
+
+  // Choose the one with greater absolute contrast
+  return Math.abs(contrastWhite) > Math.abs(contrastBlack) ? "#fff" : "#000";
+};
+
 const generateUtilityColor = (
   hue: number,
   background: string,
@@ -150,14 +169,9 @@ const capitalizeFirstLetter = (word: string) => {
 };
 
 const generateTextOnPalette = (palette: Record<string, string>, type: ThemeType) => {
-  const lightText = "#fff";
-  const darkText = "#000";
-
   return Object.fromEntries(
     Object.entries(palette).flatMap(([key, bg]) => {
-      const lightContrast = chroma.contrast(bg, lightText);
-      const darkContrast = chroma.contrast(bg, darkText);
-      const best = lightContrast >= 3.1 ? lightText : darkContrast >= 3.1 ? darkText : lightContrast > darkContrast ? lightText : darkText;
+      const best = getReadableTextColor(bg);
       const upperCaseKey = capitalizeFirstLetter(key);
 
       return [
